@@ -12,6 +12,8 @@ A react table component with expandable rows. This table uses consistent columns
 - Conditional row background colors
 - Columns can include multiple entries per column
 - All rows are loaded on initial load to ensure high performance when expanding/collapsing rows
+- added sorting
+- can manage the parent and child class based on active inactive state
 
 ## Installation
 
