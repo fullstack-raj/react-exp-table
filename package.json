@@ -39,7 +39,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "build-component": "rm -rf ./dist && mkdir dist && tsc && cp src/expandableTable.css dist/src/ && cp src/main.js dist/",
     "test": "react-scripts test",

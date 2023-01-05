@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import ExpandableTableRow from "./ExpandableTableRow";
 import { Column } from "./ExpandableTableColumn";
@@ -17,6 +17,7 @@ interface Props {
   rowColor?: (rowData: any) => string | undefined;
   visibleOnInit?: (rowData: any) => boolean;
   hideCollapseExpandButtons?: boolean;
+  // sortData?: any;
 }
 
 const ExpandableTable: React.FC<Props> = ({
@@ -26,13 +27,16 @@ const ExpandableTable: React.FC<Props> = ({
   rowKey,
   rowColor,
   visibleOnInit,
-  hideCollapseExpandButtons
+  hideCollapseExpandButtons,
+  // sortData
 }) => {
   /** An "event" used to collapse or expand all rows in the table */
   const [collapseAllEvent, setCollapseAllEvent] = useState<CollapseEvent>({
     timestamp: 0,
     collapse: undefined
   });
+
+  const [rowData, setRowData] = useState<any>(data);
 
   const rows = data.map((value) => {
     const rowKeyValue = () => {
@@ -57,14 +61,17 @@ const ExpandableTable: React.FC<Props> = ({
         rowKey={rowKey}
         rowColor={rowColor}
         visibleOnInit={visibleOnInit}
-        expandParent={() => {}}
+        expandParent={() => { }}
       ></ExpandableTableRow>
     );
   });
-
+  const sortData = (key:any) => {
+    const sorted = [...rowData].sort((a, b) => (a[key] > b[key] ? 1 : -1));
+    setRowData(sorted);
+  };
   const renderHeaders = () => {
     return columns?.map((column) => {
-      return <th key={column.title}>{column.title}</th>;
+      return <th onClick={() => sortData(column.title)} key={column.title}>{column.title}</th>;
     });
   };
 
