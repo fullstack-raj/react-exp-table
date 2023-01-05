@@ -38,7 +38,7 @@ const ExpandableTable: React.FC<Props> = ({
 
   const [rowData, setRowData] = useState<any>(data);
 
-  const rows = data.map((value) => {
+  const rows = rowData.map((value:any) => {
     const rowKeyValue = () => {
       if (rowKey) {
         return value[rowKey];
@@ -71,7 +71,7 @@ const ExpandableTable: React.FC<Props> = ({
   };
   const renderHeaders = () => {
     return columns?.map((column) => {
-      return <th onClick={() => sortData(column.title)} key={column.title}>{column.title}</th>;
+      return <th className="sortIcon" onClick={() => sortData(column.title)} key={column.title}>{column.title}<span className="sortIcons"></span></th>;
     });
   };
 

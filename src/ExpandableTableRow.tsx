@@ -15,6 +15,7 @@ interface Props {
   rowColor?: (rowData: any) => string | undefined;
   visibleOnInit?: (rowData: any) => boolean;
   expandParent: () => void;
+  classNames?: string;
 }
 
 const ExpandableTableRow: React.FC<Props> = ({
@@ -27,7 +28,8 @@ const ExpandableTableRow: React.FC<Props> = ({
   rowKey,
   rowColor,
   visibleOnInit,
-  expandParent
+  expandParent,
+  classNames
 }) => {
   //controls whether child rows are displayed as well as the rotated state of the collapse icon
   const [collapsed, setCollapsed] = useState(true);
@@ -48,7 +50,7 @@ const ExpandableTableRow: React.FC<Props> = ({
 
   const collapseIconClasses = `icon-button ${collapsed ? "collapsed" : ""}`;
   const childLevelClasses = `child-${childLevel}`;
-  const trClasses = `expandableRow ${
+  const trClasses = `expandableRow ${classNames ? classNames:''} ${
     hidden && childLevel !== 0 ? "displayNone" : ""
   } `;
   const trStyles =
@@ -121,6 +123,7 @@ const ExpandableTableRow: React.FC<Props> = ({
         visibleOnInit={visibleOnInit}
         expandParent={expand}
         hideChildren={hideRowChildren}
+        classNames={`${!collapsed?'active_child':''}`}
       ></ExpandableTableRow>
     );
   });
@@ -222,7 +225,7 @@ const ExpandableTableRow: React.FC<Props> = ({
     typeof columns[0].key == "string" ? columns[0].key : columns[0].key[0];
   return (
     <>
-      <tr className={trClasses} key={childLevel + data[key]}>
+      <tr className={`${trClasses} ${!collapsed?'active_parent':''}`} key={childLevel + data[key]}>
         {rowData}
       </tr>
       {childRows}
